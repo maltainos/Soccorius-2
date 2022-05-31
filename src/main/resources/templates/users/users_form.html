@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body>
+	
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			
+			<div class="card full-widths">
+				<div class="card-body">
+					<h5 class="card-title">Gestao de Usuarios | [[${pageTitle}]]</h5>
+				</div>
+				
+				<div class="form-center mt-5">
+					<form th:action="@{/users/save}" method="post" th:object="${user}">
+						<div class="mb-3">
+						    <label for="email" class="form-label">E-mail</label>
+						    <input type="email" class="form-control" id="email" th:field="*{email}">
+						</div>
+						<div class="mb-3">
+						    <label for="firstName" class="form-label">Nome</label>
+						    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+						</div>
+						<div class="mb-3">
+						    <label for="lastName" class="form-label">Apelido</label>
+						    <input type="text" class="form-control" id="lastName" aria-describedby="firstName" th:field="*{lastName}">
+						</div>
+						<div class="mb-3">
+						    <label for="password" class="form-label">Senha</label>
+						    <input type="password" class="form-control" id="password" th:field="*{encryptPassword}">
+						</div>
+						<div class="mb-3 form-check">
+						    <input type="checkbox" class="form-check-input" id="enabled" th:field="*{emailVerificationStatus}">
+						    <label class="form-check-label" for="enabled">Activo</label>
+						</div>
+						<div class="mb-3 form-check">
+						    <input type="hidden" class="form-check-input" id="image" th:field="*{image}">
+						</div>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+							    <label for="inputPassword6" class="col-form-label">Foto Perfil:</label>
+							</div>
+							<div class="col-auto">
+							    <input type="file" id="fileImage" class="form-control">
+							</div>
+						</div>
+						<div class="float-end">
+							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+	
+	<script type="text/javascript">
+		moduleURL = "[[@{/users}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

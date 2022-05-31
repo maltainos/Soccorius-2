@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- SIDEBAR START-->
+	<div class="sidebar" th:fragment="sidebar">
+		<div class="sidebar-header">
+			<div class="sidebar-logo">
+				<i class="fas fa-user"></i>&nbsp;
+				<div class="logo-name">Soccorius</div>
+			</div>
+			<i class="fas fa-bars" id="btn-bars"></i>
+		</div>
+		<div class="sidebar-body">
+			<!-- NAVBAR START-->
+			<nav class="navbar">
+				 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				 	
+				 	<li class="nav-item mb-4">
+			          	<a>
+			          		<i class="fas fa-search icon"></i>
+			          		<input type="search" name="search" placeholder="Search...">
+			          	</a>
+			          	<span class="tooltip1">Search</span>
+			        </li>
+			        <li class="nav-item mt-5">
+			          	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-check-circle"></i>
+			          		<span class="link-name">Dashboard<span>
+			          	</a>
+			          	<span class="tooltip1">Dashboard</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/users}">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Users<span>
+			          	</a>
+			          	<span class="tooltip1">Users</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Pacientes<span>
+			          	</a>
+			        	<span class="tooltip1">Pacientes</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Entradas<span>
+			          	</a>
+			        	<span class="tooltip1">Entradas</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Saidas<span>
+			          	</a>
+			        	<span class="tooltip1">Saidas</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Relatorios<span>
+			          	</a>
+			        	<span class="tooltip1">Relatorios</spa>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Entradas<span>
+			          	</a>
+			        	<span class="tooltip1">Entradas</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Saidas<span>
+			          	</a>
+			        	<span class="tooltip1">Saidas</span>
+			        </li>
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" href="#">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Relatorios<span>
+			          	</a>
+			        	<span class="tooltip1">Relatorios</span>
+			        </li>
+			     </ul>
+			</nav><!-- NAVBAR END-->
+		</div>
+		
+		<!-- PROFILE START-->
+		<div class="profile-content">
+			<div class="profile">
+				<div class="profile-details">
+					<img th:src="@{/images/default-user.png}">
+					<div class="nameb-job">
+						<div class="name">Maltainos</div>
+						<div class="job">Java Developer</div>
+					</div>
+				</div>
+				<i class="fas fa-sign-out" id="logout"></i>
+			</div>
+		</div><!-- PROFILE END-->
+	</div><!-- SIDEBAR END-->
+</body>
+</html>

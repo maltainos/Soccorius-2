@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body>
+	
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			
+			<div class="card full-widths">
+				<div class="card-body">
+					<h5 class="card-title">Gestao de Usuarios</h5>
+				    
+				    <div class="utility mt-5 mb-1">
+				    	<a type="button" class="btn btn-primary" th:href="@{/users/new}">
+				    		<i class="fas fa-user-plus"></i>
+				    		<span>Novo</span>
+				    	</a>
+						<button type="button" class="btn btn-success">
+							<i class="fas fa-file-pdf"></i>
+				    		<span>PDF</span>
+						</button>
+						
+						<button type="button" class="btn btn-warning">
+							<i class="fas fa-file-csv"></i>
+				    		<span>CSV</span>
+						</button>
+						
+						<button type="button" class="btn btn-info">
+							<i class="fas fa-file-excel"></i>
+				    		<span>EXCEL</span>
+						</button>
+						
+						<form class="float-end">
+							<div class="row g-3 align-items-center">
+								<div class="col-auto">
+								    <label for="inputPassword6" class="col-form-label">Filtrar: </label>
+								</div>
+								<div class="col-auto">
+								    <input type="search" id="search" class="form-control">
+								</div>
+								<div class="col-auto">
+									<button class="btn btn-primary">
+								    	<i class="fas fa-search"></i>
+								    </button>
+								    <button class="btn btn-secondary" onclick="clearSearchForm();">
+								    	<i class="fas fa-eraser"></i>
+								    </button>
+								</div>
+							</div>
+						</form>
+				    </div>
+				    
+				    <table class="table table-responsive table-bordered table-striped table-hover">
+				    	<thead>
+				    		<tr>
+				    			<th>#</th>
+				    			<th>Imagem</th>
+				    			<th>E-mail</th>
+				    			<th>Nome</th>
+				    			<th>Apelido</th>
+				    			<th>Activo</th>
+				    			<th>Permissoes</th>
+				    			<th></th>
+				    		</tr>
+				    	</thead>
+				    </table>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+	
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

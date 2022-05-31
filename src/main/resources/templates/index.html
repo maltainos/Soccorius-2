@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body>
+	
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			
+			SECTION
+		</div>
+		
+		
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+	
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>
