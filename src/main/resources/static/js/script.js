@@ -7,6 +7,7 @@ $(document).ready(function(){
 });
 
 
+
 let btnBars = document.querySelector("#btn-bars");
 let sidebar = document.querySelector(".sidebar");
 let search = document.querySelector(".fa-search");
