@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body class="bg-light">
+	
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">[[${pageTitle}]]</h3>
+			</div>
+			
+			<div class="card full-widths">
+				<div class="card-body">
+				
+					<div class="row">
+						<div class="col-md-4 col-sm-12">
+							<div class="border shadow p-3 mb-5 bg-body rounded">
+								<div class="text-center">
+									<img class="img-fluid" th:src="@{/images/default-user.png}" title="User Account Photo" alt="User Account Photo">
+									<p class="text-secondary">[[${user.email}]]</p>
+								</div>
+								<h6 class="text-uppercase">Permissoes Atribuidas</h6>
+								<ul>
+									<th:block th:each="role : ${user.roles}">
+										<li>[[${role.roleName}]]</li>
+									</th:block>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="col-md-8 col-sm-12">
+							<form th:action="@{/account/update}" method="post" th:object="${user}"
+						onsubmit="return checkEmailIsUnique(this);">
+							<input type="hidden"/>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label for="email" class="form-label">E-mail :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="email" class="form-control" th:field="*{email}">
+							    </div>
+							</div>
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label for="firstName" class="form-label">Nome :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="text" class="form-control" th:field="*{firstName}">
+							    </div>
+							</div>
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label for="lastName" class="form-label">Apelido :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="text" class="form-control" th:field="*{lastName}" aria-describedby="firstName">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label for="password" class="form-label">Senha :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="password" class="form-control" placeholder="Password">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label for="password" class="form-label">Confirmar Senha :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="password" class="form-control" placeholder="Confirm Password">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-3">
+							    	<label class="form-check-label" for="enabled">Activo :</label>
+							    </div>
+							    <div class="col-md-9">
+							    	<input type="checkbox" class="form-check-input" th:field="*{emailVerificationStatus}">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+								<input type="hidden" class="form-check-input" id="image">
+								<div class="col-md-3">
+								    <label for="inputPassword6" class="col-form-label">Foto Perfil:</label>
+								</div>
+								<div class="col-md-9">
+								    <input type="file" id="fileImage" class="form-control">
+								</div>
+							</div>
+							
+								
+							<div class="float-end">
+								<button type="submit" class="btn btn-primary">Salvar</button>
+								<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
+							</div>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+	
+	<div th:replace="fragments::modalDialog"></div>
+	
+	<script type="text/javascript">
+		moduleURL = "[[@{/users}]]";
+		checkEmailUrl = "[[@{/wsapi/users}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/users_form.js}"></script>
+</body>
+</html>

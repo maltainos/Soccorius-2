@@ -65,6 +65,28 @@ body{
 	left: 90%;
 }
 
+.sidebar .navbar{
+	height: 559px;
+	/*overflow: scroll;*/
+}
+
+/* width */
+.sidebar .navbar::-webkit-scrollbar {
+	width: 3px;
+}
+
+/* Track */
+.sidebar .navbar::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px #11101d;
+	border-radius: 10px;
+}
+
+/* Handle */
+.sidebar .navbar::-webkit-scrollbar-thumb {
+	background: #11101d;
+	border-radius: 10px;
+}
+
 .sidebar ul{
 	width: 100% !important;
 }
@@ -255,11 +277,15 @@ body{
 	z-index: -1;
 }
 .form-center{
-	width: 500px;
+	width: 800px;
 	margin: 10px auto;
 	border: 1px solid #ccc;
 	padding: 20px;
 	border-radius: 4px;
+}
+
+.dashboard-number{
+	font-size: 1.8rem !important;
 }
 
 @media only screen and (max-width: 960px){

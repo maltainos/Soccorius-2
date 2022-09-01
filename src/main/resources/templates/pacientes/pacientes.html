@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body>
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		
+		<!-- TOP NAV START -->
+		<nav th:replace="fragments :: navbar"></nav>
+		<!-- TOP NAV FINISH -->
+		
+		<div class="section">
+			<div class="">
+				<h3 class="text-uppercase">Gestao de [[${pageTitle}]]</h3>
+			</div>
+			<div class="card full-width">
+				<div class="card-body">
+					<div th:if="${message != null}" class="alert alert-sm alert-success d-flex align-items-center">
+						<i class="fas fa-circle-check fa-2x"></i> &nbsp;&nbsp;&nbsp;
+				    	<div>
+						    [[ ${message} ]]
+						</div>
+					</div>
+					
+					<!-- UTILITY START -->
+					<div th:replace="fragments::utility('/pacientes', ${currentPage}, ${keyword})"></div>
+					<!-- UTILITY FINISH -->
+				    
+				    <table class="table table-responsive table-bordered table-striped table-hover">
+				    	<thead>
+				    		<tr>
+				    			<th>NSSP</th>
+				    			<th>E-mail</th>
+				    			<th>Nome</th>
+				    			<th>Apelido</th>
+				    			<th>Idade</th>
+				    			<th>Telefone</th>
+				    			<th style="width: 190px"></th>
+				    		</tr>
+				    	</thead>
+				    	
+				    	<tbody>
+				    		<tr th:each="paciente : ${listOfPacientes}">
+				    			<td>[[${paciente.pacienteCode}]]</td>
+				    			<td>[[${paciente.email}]]</td>
+				    			<td>[[${paciente.firstName}]]</td>
+				    			<td>[[${paciente.lastName}]]</td>
+				    			<td>[[${paciente.yearsOld}]] Anos</td>
+				    			<td>[[${paciente.phone}]]</td>
+				    			<td class="text-center">
+				    				<button class="link-about btn btn-secondary btn-sm" data-bs-toggle="tooltip" 
+				    					data-bs-placement="top" title="Sobre Paciente">
+										<i class="fas fa-folder"></i>
+									</button>
+									<button class="link-medical btn btn-success btn-sm" data-bs-toggle="tooltip" 
+										data-bs-placement="top" title="Ficha Paciente">
+										<i class="fas fa-folder-plus"></i>
+									</button>
+									<a class="btn btn-primary btn-sm" data-bs-toggle="tooltip" 
+									data-bs-placement="top" title="Editar Paciente" th:href="@{'/pacientes/edit/'+${paciente.id}}">
+										<i class="fas fa-user-edit"></i>
+									</a>
+									<a class="link-delete btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimiar Paciente"
+									th:href="@{'/pacientes/delete/'+${paciente.id}}" th:pacientName="${paciente.firstName}">
+										<i class="fas fa-trash"></i>
+									</a>
+								</td>
+				    		</tr>
+				    	</tbody>
+				    </table>
+				    
+				    <div th:if="${totalOfElements == 0}" class="text-center text-uppercase">
+				    	<span>Nehum Paciente Encontrado!</span>
+				    </div>
+				    
+				    <th:block th:if="${totalOfElements > 0}">
+				    	<nav th:replace="fragments::pagination('pacientes',${currentPage},${limit},${keyword},${totalOfPages})"></nav>
+					</th:block>
+				</div>
+			</div>
+		</div>
+	</div><!-- MAIN CONTENT FINISH -->
+	
+	<div class="modal fade" id="modalDetails">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<span class="text-center text-uppercase">informacao do paciente</span>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="firstName" class="form-label">Nome</label>
+							<input type="text" class="form-control" placeholder="Nome">
+						</div>
+							<div class="col-md-6">
+							<label for="lastName" class="form-label">Apelido</label>
+							<input type="text" class="form-control" placeholder="Apelido">
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<div class="col-md-4">
+							<label for="placeOfBirth" class="form-label">Local Nascimento</label>
+							<input type="text" class="form-control" placeholder="Local Nascimento">
+						</div>
+						
+						<div class="col-md-4">
+							<label for="dateOfBirth" class="form-label">Data Nascimento</label>
+							<input type="date" class="form-control" placeholder="Data Nascimento" aria-label="Data Nascimento">
+						</div>
+						<div class="col-md-4">
+							<label for="yearsOld" class="form-label">Idade</label>
+							<input type="text" class="form-control" placeholder="Idade" aria-label="Idade">
+						</div>
+					</div>
+					
+					<div class="row g-3 mb-3">
+						<div class="col-md-5">
+							<label for="email" class="form-label">E-mail</label>
+						    <input type="email" class="form-control" placeholder="E-mail" aria-label="E-mail">
+						</div>
+						<div class="col-md-3">
+							<label for="phone" class="form-label">Telefone</label>
+						    <input type="text" class="form-control" placeholder="Telefone" aria-label="Telefone">
+						</div>
+						<div class="col-md-4">
+							<label for="morada" class="form-label">Morada</label>
+						    <input type="text" class="form-control" placeholder="Morada" aria-label="Morada">
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="fathersName" class="form-label">Nome do Pai</label>
+							<input type="text" class="form-control" placeholder="Nome Pai" aria-label="Nome do Pai">
+						</div>
+						<div class="col-md-6">
+							<label for="mothersName" class="form-label">Nome da Mae</label>
+							<input type="text" class="form-control" placeholder="Nome Mae" aria-label="Apelido da Mae">
+						</div>
+					</div>	
+				</div>
+							
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="modal fade" id="modalMedical">
+		<div class="modal-dialog modal-lg modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">
+						<span class="text-center text-uppercase">HISTORIAL DE CONSULTAS</span>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<table class="table table-responsive table-bordered table-striped table-hover">
+				    	<thead>
+				    		<tr>
+				    			<th>#</th>
+				    			<th>ID Con</th>
+				    			<th>Titulo da Consulta</th>
+				    			<th>Data Consulta</th>
+				    			<th style="width: 190px"></th>
+				    		</tr>
+				    	</thead>
+				    		<tr th:each="paciente,status : ${listOfPacientes}">
+				    			<td>[[${status.index + 1}]]</td>
+				    			<td>[[${(status.index + 1) * paciente.id}]]</td>
+				    			<td>[[${paciente.firstName}]]</td>
+				    			<td>[[${paciente.lastName}]]</td>
+				    			<td class="text-center">
+				    				<button class="link-about btn btn-secondary btn-sm" data-bs-toggle="tooltip" 
+				    					data-bs-placement="top" title="Sobre Paciente">
+										<i class="fas fa-folder"></i>
+									</button>
+									<button class="link-medical btn btn-success btn-sm" data-bs-toggle="tooltip" 
+										data-bs-placement="top" title="Ficha Paciente">
+										<i class="fas fa-folder-plus"></i>
+									</button>
+									<a class="btn btn-primary btn-sm" data-bs-toggle="tooltip" 
+									data-bs-placement="top" title="Editar Paciente" th:href="@{'/pacientes/edit/'+${paciente.id}}">
+										<i class="fas fa-user-edit"></i>
+									</a>
+									<a class="link-delete btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Elimiar Paciente"
+									th:href="@{'/pacientes/delete/'+${paciente.id}}" th:pacientName="${paciente.firstName}">
+										<i class="fas fa-trash"></i>
+									</a>
+				    			</td>
+				    		</tr>			    
+				    	<tbody>
+				    </table>
+				    <th:block th:if="${totalOfElements > 0}">
+				    	<nav th:replace="fragments::pagination('pacientes',${currentPage},${limit},${keyword},${totalOfPages})"></nav>
+					</th:block>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div th:replace="fragments::modalConfirmation"></div>
+		
+	<script>
+		moduleURL = "[[@{/pacientes}]]";
+		$(document).ready(function(){
+			$('.link-about').on('click', function(event){
+				event.preventDefault();
+				$("#modalDetails").modal('show');
+			});
+			
+			$('.link-medical').on('click', function(event){
+				event.preventDefault();
+				$("#modalMedical").modal('show');
+			});
+			
+			$('.link-delete').on('click', function(event){
+				event.preventDefault();
+				link = $(this);
+				pacienteName = link.attr("pacientName");
+				$("#yesButton").attr('href', link.attr('href'));
+				showModalConfirmation("Deseja remover Paciente: "+pacienteName+"?");
+			});
+		});
+	</script>	
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

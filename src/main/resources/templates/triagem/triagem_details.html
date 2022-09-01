@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body class="bg-light">
+
+	<div th:replace="sidebar :: sidebar"></div>
+
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">Sobre Triagem | [[${pageTitle}]]</h3>
+			</div>
+
+			<div class="card full-widths">
+				<div class="card-body">
+					<form method="post" th:object="${triagem}">
+						<div class="row mb-3">
+							<div class="float-end">
+								<a th:href="@{'/paciente/'+${triagem.paciente.pacienteCode}+'/triagem/'+${triagem.id}+'/internar'}" class="btn btn-secondary">Internar</a>
+								<button type="button" class="btn btn-primary">Bloco
+									Operatorio</button>
+								<a th:href="@{'/triagem/details/'+${triagem.id}+'/laboratorio'}" class="btn btn-warning">Laboratorio</a>
+								<button type="button" class="btn btn-success">Consulta Simples</button>
+								<a th:href="@{'/triagem/paciente/'+${triagem.id}+'/transferir'}" type="button" class="btn btn-info">Transferir</a>
+								<button type="button" class="btn btn-dark">Imagiologia</button>
+								<button type="button" class="btn btn-ligth btn-outline-secondary">Receitas</button>
+							</div>
+						</div>
+						<hr/>
+						<input type="hidden" id="id" th:field="${id}" />
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="assistente" class="form-label">Agente de
+											Saude :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="assistente"
+											th:value="${assistente.fullName}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="paciente" class="form-label">Utente :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control"
+											th:value="${triagem.paciente.codeFullNameAge}"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="sintomas" class="form-label">Sintomas :</label>
+									</div>
+									<div>
+										<textarea type="text" class="form-control"
+											th:field="*{sintomas}" rows="5"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="updateAt" class="form-label">Data e Hora
+											de Saida:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="updateAt"
+											th:value="*{updateAt}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="createAt" class="form-label">Data e Hora
+											de Entrada:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="createAt"
+											th:field="*{createAt}" placeholder="Data e Hora de Entrada"
+											readonly="readonly">
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+						<!--
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label class="form-check-label" for="enabled">Activo :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="checkbox" class="form-check-input" id="enabled" th:field="*{emailVerificationStatus}">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+								<input type="hidden" class="form-check-input" id="image" th:field="*{image}">
+								<div class="col-md-2">
+								    <label for="inputPassword6" class="col-form-label">Foto Perfil:</label>
+								</div>
+								<div class="col-md-10">
+								    <input type="file" id="fileImage" class="form-control">
+								</div>
+							</div>
+							
+							<div class="form-group row mb-3" th:if="${user.id != null}">
+							    <div class="col-md-2">
+							    	<label for="createdOn" class="form-label">Criado Em:</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="date" class="form-control" pattern="yyyy-mm-dd" id="createdOn" th:field="*{createdOn}" readonly="readonly">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3" th:if="${user.id != null}">
+							   	<div class="col-md-2">
+							   		 <label for="updatedOn" class="form-label">Actualizado Em:</label>
+							   	</div>
+							    <div class="col-md-10">
+							    	<input type="date" class="form-control" pattern="yyyy-mm-dd" id="updatedOn" th:field="*{updatedOn}" readonly="readonly">
+							    </div>
+							</div>-->
+						<div class="float-end">
+							<button type="button" class="btn btn-danger" id="cancel">Voltar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+
+	<div th:replace="fragments::modalDialog"></div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#sintomas").richText();
+		});
+		moduleURL = "[[@{/triagem}]]";
+		checkEmailUrl = "[[@{/wsapi/triagem}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/users_form.js}"></script>
+</body>
+</html>

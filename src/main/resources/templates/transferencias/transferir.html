@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body class="bg-light">
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">[[${pageTitle}]]</h3>
+			</div>
+			<div class="card full-widths">
+				<div class="card-body">
+					<!-- MESSAGE START -->
+					<div th:if="${message != null}" class="alert alert-sm alert-success d-flex align-items-center">
+						<i class="fas fa-circle-check fa-2x"></i> &nbsp;&nbsp;&nbsp;
+				    	<div>
+						    [[ ${message} ]]
+						</div>
+					</div>
+					<!-- MESSAGE FINISH -->
+					<form th:action="@{/triagem/transferencia/save}" method="post" th:object="${transferencia}">
+						<input type="hidden" id="id" th:field="*{id}" />
+						<input type="hidden" th:field="*{triagem}" />
+						<input type="hidden" th:field="*{paciente}" />
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="assistente" class="form-label">Medico Responsavel :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="assistente"
+											th:value="${transferencia.medicoResponsavel.fullName}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="paciente" class="form-label">Utente :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control"
+											th:value="${transferencia.paciente.codeFullNameAge}"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="local" class="form-label" th:if="${transferencia.id == null || transferencia.id != 0}">Transferir para:</label>
+										<label for="local" class="form-label" th:if="${transferencia.id != null || transferencia.id == 0}">Transferido para:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" th:field="*{transferidoPara}" readonly="readonly" th:if="${transferencia.id != null}"/>
+										<input type="text" class="form-control" th:field="*{transferidoPara}" th:if="${transferencia.id == null}"/>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="dataTransferencia" class="form-label">Data Transferencia:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="dataTransferencia"
+											th:field="*{dataTransferencia}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="paciente" class="form-label">ID Triagem :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control"
+											th:value="${transferencia.triagem.triagemNumber}"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="sintomas" class="form-label">Detalhes da Tranferencia :</label>
+									</div>
+									<div>
+										<textarea type="text" class="form-control"
+											th:field="*{descricao}" rows="5"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="float-end">
+							<button type="submit" class="btn btn-primary" th:if="${transferencia.id == null || transferencia.id == 0}">Salvar</button>
+							<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
+						</div>
+					</form>
+					 
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$("#descricao").richText();
+		});
+		moduleURL = "[[@{/triagem}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

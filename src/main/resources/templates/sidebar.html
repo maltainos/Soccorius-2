@@ -6,7 +6,7 @@
 </head>
 <body>
 	<!-- SIDEBAR START-->
-	<div class="sidebar" th:fragment="sidebar">
+	<div class="sidebar active" th:fragment="sidebar">
 		<div class="sidebar-header">
 			<div class="sidebar-logo">
 				<i class="fas fa-user"></i>&nbsp;
@@ -27,7 +27,7 @@
 			          	<span class="tooltip1">Search</span>
 			        </li>
 			        <li class="nav-item mt-5">
-			          	<a class="nav-link active" aria-current="page" href="#">
+			          	<a class="nav-link active" aria-current="page" th:href="@{/}">
 			          		<i class="fas fa-check-circle"></i>
 			          		<span class="link-name">Dashboard<span>
 			          	</a>
@@ -41,49 +41,60 @@
 			          	<span class="tooltip1">Users</span>
 			        </li>
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/pacientes}">
 			          		<i class="fas fa-users"></i>
 			          		<span class="link-name">Pacientes<span>
 			          	</a>
 			        	<span class="tooltip1">Pacientes</span>
 			        </li>
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/triagem}">
 			          		<i class="fas fa-users"></i>
-			          		<span class="link-name">Entradas<span>
+			          		<span class="link-name">Triagem<span>
 			          	</a>
-			        	<span class="tooltip1">Entradas</span>
+			        	<span class="tooltip1">Consultas</span>
 			        </li>
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/laboratorios}">
 			          		<i class="fas fa-users"></i>
-			          		<span class="link-name">Saidas<span>
+			          		<span class="link-name">Laboratorio<span>
 			          	</a>
-			        	<span class="tooltip1">Saidas</span>
+			        	<span class="tooltip1">Laboratorio</span>
 			        </li>
-			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			         <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/transferencias}">
 			          		<i class="fas fa-users"></i>
-			          		<span class="link-name">Relatorios<span>
+			          		<span class="link-name">Transferencia<span>
 			          	</a>
-			        	<span class="tooltip1">Relatorios</spa>
+			        	<span class="tooltip1">Transferencia</span>
 			        </li>
+			     
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/internados}">
 			          		<i class="fas fa-users"></i>
-			          		<span class="link-name">Entradas<span>
+			          		<span class="link-name">Internados<span>
 			          	</a>
-			        	<span class="tooltip1">Entradas</span>
+			        	<span class="tooltip1">Internados</span>
 			        </li>
+			        
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/obitos}">
 			          		<i class="fas fa-users"></i>
-			          		<span class="link-name">Saidas<span>
+			          		<span class="link-name">Obidos<span>
 			          	</a>
-			        	<span class="tooltip1">Saidas</span>
+			        	<span class="tooltip1">Obidos</spa>
 			        </li>
+			        
 			        <li class="nav-item">
-			        	<a class="nav-link active" aria-current="page" href="#">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/encaminhados}">
+			          		<i class="fas fa-users"></i>
+			          		<span class="link-name">Encaminhamento<span>
+			          	</a>
+			        	<span class="tooltip1">Encaminhamento</spa>
+			        </li>
+			        
+			        <li class="nav-item">
+			        	<a class="nav-link active" aria-current="page" th:href="@{/reports}">
 			          		<i class="fas fa-users"></i>
 			          		<span class="link-name">Relatorios<span>
 			          	</a>

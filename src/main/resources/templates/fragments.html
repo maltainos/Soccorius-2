@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmls:sec="http://www.thymeleaf.org/thymeleaf-extras-security5">
 
 <head th:fragment="html_head(pageTitle)">
 	
@@ -9,60 +9,210 @@
 
 	<link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
 	<link type="text/css" rel="stylesheet" th:href="@{/webjars/font-awesome/6.0.0/css/all.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-select.min.css}">
+	<link type="text/css" rel="stylesheet" th:href="@{/richtext/richtext.min.css}">
 	<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}">
 	
 	<script type="text/javascript" th:src="@{/webjars/jquery/3.5.0/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap-select.min.js}"></script>
+	<script type="text/javascript" th:src="@{/richtext/jquery.richtext.min.js}"></script>
 	
 </head>
 
 <body>
-	<div class="container-fluid">
-		<nav class="navbar navbar-nav navbar-expand-lg navabr-custom" th:fragment="navbar">
-			<div class="container-fluid">
-				<a class="navbar-brand text-white" th:href="@{/}">[[${pageTitle}]]</a>
+	
+	<!--FRAGMENT START--><!-- NAVBAR-NAV START -->
+	<nav class="navbar navbar-nav navbar-expand-lg navabr-custom" th:fragment="navbar">
+	
+		<form th:action="@{/logout}" method="post" name="logoutForm" th:hidden="true">
+			<input type="submit" />
+		</form>
+		
+		<!-- CONTAINER FLUID START -->
+		<div class="container-fluid">
 				
-				<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#userSection" aria-controls="#userSection" aria-expanded="false" aria-label="Toggle navigation">
-					<i class="fas fa-bars text-white"></i>
-				</button>
+			<a class="navbar-brand text-white text-uppercase" th:href="@{/}">[[${pageTitle}]]</a>	
+			<!-- BUTTON START -->
+			<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#userSection" aria-controls="#userSection" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="fas fa-bars text-white"></i>
+			</button><!-- BUTTON FINISH -->
 				
-				<div class="collapse navbar-collapse" id="userSection">
-					   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				        	 <li class="nav-item">
-						          <a class="nav-link disabled">Socorrius</a>
-						     </li>
-				    	</ul>
-				    
-					<!-- NAVBAR_NAV START -->
-				    <div class="d-flex">
-				        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				        	<li class="nav-item dropdown">
-						        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						            <i class="fas fa-user"></i>
-						          	<span>rony@codejava.rvw</span>
-						        </a>
-					        	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						            <li>
-						            	<a class="dropdown-item" href="#">
-						            		<i class="fas fa-setting" id="logout"></i>
-						            		<span>Account</span>
-						            	</a>
-						            </li>
-					            	<li><hr class="dropdown-divider"></li>
-						            <li>
-						            	<a class="dropdown-item" href="#">
-						            		<i class="fas fa-sign-out" id="logout"></i>
-						            		<span>Logout</span>
-						            	</a>
-						            </li>
-					        	</ul>
-				        	</li>
-				    	</ul>
-				     </div>
-				     <!-- NAVBAR_NAV START -->
+			<!-- COLLAPSE NAVBAR-COLLAPSE START -->
+			<div class="collapse navbar-collapse" id="userSection">
+				<!-- UL START -->
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link disabled text-uppercase">Socorrius</a>
+					</li>
+				</ul><!-- UL FINISH -->
+					
+				<!-- D-FLEX START -->
+				<div class="d-flex">
+				    <!-- UL START -->
+				    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				        <li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						    	<i class="fas fa-user"></i>
+						        <span sec:authentication="principal.username"></span>
+						    </a>
+					        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						    	<li>
+						        	<a class="dropdown-item" th:href="@{/account}">
+						            	<i class="fas fa-setting" id="account"></i>
+						            	<span>Account</span>
+						            </a>
+						        </li>
+					            <li><hr class="dropdown-divider"></li>
+						        <li>
+						            <a class="dropdown-item" href="" id="logoutLink">
+						            	<i class="fas fa-sign-out"></i>
+						            	<span>Logout</span>
+						            </a>
+						        </li>
+					        </ul>
+				        </li>
+				    </ul><!-- UL FINISH -->
+				</div><!-- D-FLEX FINISH -->
+			</div><!-- COLLAPSE NAVBAR-COLLAPSE START -->
+		</div><!-- CONTAINER FLUID START -->
+	</nav>
+	<!-- NAVBAR_NAV START --><!--FRAGMENT FINISH-->
+	
+	<!--FRAGMENT START--><!-- MODAL DIALOG START -->
+	<div th:fragment="modalDialog" class="modal fade" id="modalDialog">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitle"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				
+				<div class="modal-body">
+					<p class="text-center" id="modalText"></p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 				</div>
 			</div>
-		</nav>
+		</div>
+		</div>
 	</div>
+	<!-- MODAL DIALOG FINISH --><!--FRAGMENT FINISH-->
+	
+	<!--FRAGMENT START--><!-- MODAL CONFIRMATION  START -->
+	<div class="modal fade text-center" id="modalConfirmation" th:fragment="modalConfirmation">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-uppercase">Confirmação</h5>
+				</div>
+				<div class="modal-body">
+					<p id="confimationText"></p>
+				</div>
+					
+				<div class="modal-footer">
+					<a id="yesButton" th:href="@{/}" class="btn btn-danger btn-sm">
+						<i class="fas fa-trash"></i>
+						<span>SIM</span>
+					</a>
+					
+					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">
+						<i class="fas fa-close"></i>
+						<span>NÃO</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MODAL CONFIRMATION FINISH --><!--FRAGMENT FINISH-->
+	
+	
+	<!--FRAGMENT START--><!-- NAV START -->
+	<nav th:fragment="pagination(url,currentPage,limit,keyword,totalOfPages)">
+		<ul class="pagination justify-content-center">
+			<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+				<a th:href="@{'/'+${url}+'/page/1'+'?limit='+${limit}+'&keyword='+${keyword}}" class="page-link">Primeiro</a>
+			</li>
+			<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+				<a th:href="@{'/'+${url}+'/page/'+${currentPage - 1}+'?limit='+${limit}+'&keyword='+${keyword}}" class="page-link">Anterior</a>
+			</li>
+				    		
+			<li th:class="${currentPage != page ? 'page-item' : 'page-item active'}" th:each="page : ${#numbers.sequence(1, totalOfPages)}">
+				<a th:href="@{'/'+${url}+'/page/'+${page}+'?limit='+${limit}+'&keyword='+${keyword}}" class="page-link">[[${page}]]</a>
+			</li>
+				    		
+			<li th:class="${currentPage < totalOfPages ? 'page-item' : 'page-item disabled'}">
+				<a th:href="@{'/'+${url}+'/page/'+${currentPage + 1}+'?limit='+${limit}+'&keyword='+${keyword}}" class="page-link">Proximo</a>
+			</li>
+			
+			<li th:class="${currentPage < totalOfPages ? 'page-item' : 'page-item disabled'}">
+				<a th:href="@{'/'+${url}+'/page/'+${totalOfPages}+'?limit='+${limit}+'&keyword='+${keyword}}" class="page-link">Ultimo</a>
+			</li>
+		</ul>
+	</nav>
+	<!-- NAV FINISH --><!--FRAGMENT FINISH-->
+	
+	<!-- FRAGMENT UTILITY START-->
+	<div th:fragment="utility(module_url, currentPage, keyword)">
+		<div class="utility mt-2 mb-1">
+			<a type="button" class="btn btn-primary" th:href="@{${module_url}+'/new'}">
+				<i class="fas fa-user-plus"></i>
+				<span>Novo</span>
+			</a>
+			<button type="button" class="btn btn-success">
+				<i class="fas fa-file-pdf"></i>
+				<span>PDF</span>
+			</button>
+							
+			<button type="button" class="btn btn-warning">
+				<i class="fas fa-file-csv"></i>
+				<span>CSV</span>
+			</button>
+							
+			<button type="button" class="btn btn-info">
+				<i class="fas fa-file-excel"></i>
+				<span>EXCEL</span>
+			</button>
+							
+			<form class="float-end" name="limitForm" th:action="@{${module_url}+'/page/1'}">
+				<div class="row g-3 align-items-center">
+				<input type="hidden" th:value = "${currentPage}">
+					<div class="col-auto">
+						<label for="inputPassword6" class="col-form-label">Total Itens: </label>
+					</div>
+					<div class="col-auto">
+						<select class="form-select" th:value="${limit}">
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>
+					</div>
+					<div class="col-auto">
+					    <label for="inputPassword6" class="col-form-label">Filtrar: </label>
+					</div>
+					<div class="col-auto">
+						<input type="search" id="search" name="keyword" th:value="${keyword}" class="form-control">
+					</div>
+					<div class="col-auto">
+						<button class="btn btn-primary" type="submit" id="submit"
+						data-bs-toggle="tooltip" data-bs-placement="top" title="Buscar">
+							<i class="fas fa-search"></i>
+						</button>
+						<button class="btn btn-secondary" id="cancel"
+						data-bs-toggle="tooltip" data-bs-placement="top" title="Limpar">
+							<i class="fas fa-eraser"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- FRAGMENT UTILITY START-->
+	
 </body>
 </html>

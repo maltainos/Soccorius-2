@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body>
+	<div th:replace="sidebar :: sidebar"></div>
+	
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">Gestao de [[${pageTitle}]]</h3>
+			</div>
+			
+			<div class="card full-widths">
+				<div class="card-body">
+				
+					<form th:action="@{/pacientes/save}" method="post" th:object="${paciente}">
+				
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="firstName" class="form-label">Nome</label>
+								<input type="text" class="form-control" placeholder="Nome"  th:field="*{firstName}">
+							</div>
+							<div class="col-md-6">
+								<label for="lastName" class="form-label">Apelido</label>
+								<input type="text" class="form-control" placeholder="Apelido" th:field="*{lastName}">
+							</div>
+						</div>
+					
+						<div class="row mb-3">
+							<div class="col-md-4">
+								<label for="placeOfBirth" class="form-label">Local Nascimento</label>
+								<input type="text" class="form-control" placeholder="Local Nascimento" th:field="*{placeOfBirth}">
+							</div>
+							<div class="col-md-4">
+								<label for="dateOfBirth" class="form-label">Data Nascimento</label>
+								<input type="date" class="form-control" placeholder="Data Nascimento" aria-label="Data Nascimento" th:field="*{dateOfBirth}">
+							</div>
+							<div class="col-md-4">
+								<label for="yearsOld" class="form-label">Idade</label>
+								<input type="text" class="form-control" placeholder="Idade" aria-label="Idade" th:field="*{yearsOld}">
+							</div>
+						</div>
+					
+						<div class="row g-3 mb-3">
+							<div class="col-md-5">
+								<label for="email" class="form-label">E-mail</label>
+							    <input type="email" class="form-control" placeholder="E-mail" aria-label="E-mail" th:field="*{email}">
+							</div>
+							<div class="col-md-3">
+								<label for="phone" class="form-label">Telefone</label>
+							    <input type="text" class="form-control" placeholder="Telefone" aria-label="Telefone" th:field="*{phone}">
+							</div>
+							<div class="col-md-4">
+								<label for="morada" class="form-label">Morada</label>
+							    <input type="text" class="form-control" placeholder="Morada" aria-label="Morada" th:field="*{address}">
+							</div>
+						</div>
+					
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="fathersName" class="form-label">Nome do Pai</label>
+								<input type="text" class="form-control" placeholder="Nome Pai" aria-label="Nome" th:field="*{fathersName}">
+							</div>
+							<div class="col-md-6">
+								<label for="mothersName" class="form-label">Nome da Mae</label>
+								<input type="text" class="form-control" placeholder="Nome Mae" aria-label="Apelido" th:field="*{mothersName}">
+							</div>
+						</div>
+					
+						<div class="float-end">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+							<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		moduleURL = "[[@{/pacientes}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>

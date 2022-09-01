@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head(${pageTitle})"></head>
-<body>
+<body class="bg-light">
 	
 	<div th:replace="sidebar :: sidebar"></div>
 	
@@ -10,10 +10,207 @@
 		<nav th:replace="fragments :: navbar"></nav>
 		<div class="section">
 			
-			SECTION
+			<!-- ROW START -->
+			<div class="row mb-2">
+			
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-primary mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Usuarios </span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfUsers}]]</span>
+				        	</div>
+				        	<a th:href="@{/users}" class="btn btn-outline-light text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-secondary mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Pacientes</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfPatients}]]</span>
+				        	</div>
+				        	<a th:href="@{/pacientes}" class="btn btn-outline-light text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-success mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Consultas</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfConsultas}]]</span>
+				        	</div>
+				        	<a th:href="@{/consultas}" class="btn btn-outline-light text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-danger mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Laboratorios</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfLaboratorios}]]</span>
+				        	</div>
+				        	<a th:href="@{/laboratorios}" class="btn btn-outline-light text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>	
+			</div>
+			<!-- ROW FINISH -->
+			
+			<!-- ROW START -->
+			<div class="row mb-2">
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-warning mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Transferencias</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfTransferencias}]]</span>
+				        	</div>
+				        	<a th:href="@{/transferencias}" class="btn btn-outline-secondary text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-info mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Internados</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfInternados}]]</span>
+				        	</div>
+				        	<a th:href="@{/internados}" class="btn btn-outline-secondary text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-dark bg-light mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Obitos</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfObitos}]]</span>
+				        	</div>
+				        	<a th:href="@{/obitos}" class="btn btn-outline-secondary text-dark float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+				
+				<div class="col-sm-6 col-md-4 col-lg-3">
+				    <div class="card text-white bg-dark mb-3">
+				    	<div class="card-body">
+				        	<h5 class="card-title">
+				        		<i class="fas fa-users fa-2x"></i>
+				        		<span class="text-capitalize">Encaminhados</span>
+				        	</h5>
+				        	<div class="card-text">
+				        		<span class="dashboard-number">[[${totalOfEncaminhados}]]</span>
+				        	</div>
+				        	<a th:href="@{/encaminhados}" class="btn btn-outline-secondary text-white float-end">
+				        		<span>Ver mais</span>
+				        		<i class="fas fa-arrow-right"></i>
+				        	</a>
+				      	</div>
+				    </div>
+				</div>
+			</div>
+			<!-- ROW FINISH -->
+			
+			<div class="row mb-2">
+				<div class="col-sm-12 col-md-8">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<span class="text-uppercase">Obitos de Hoje</span>
+								<hr/>
+							</h5>
+						</div>
+					</div>		
+				</div>
+				<div class="col-sm-12 col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<span class="text-uppercase">Obitos de Hoje</span>
+								<hr/>
+							</h5>
+						</div>
+					</div>	
+				</div>
+			</div>
+			
+			
+			<div class="row mb-2">
+				<div class="col-sm-12 col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<span class="text-uppercase">Entradas de Hoje</span>
+								<hr/>
+							</h5>
+						</div>
+					</div>		
+				</div>
+				<div class="col-sm-12 col-md-8">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<span class="text-uppercase">Transferencias de Hoje</span>
+								<hr/>
+							</h5>
+						</div>
+					</div>	
+				</div>
+			</div>
+		
 		</div>
-		
-		
 	</div>
 	<!-- MAIN CONTENT FINISH -->
 	

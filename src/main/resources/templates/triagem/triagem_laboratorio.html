@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body class="bg-light">
+
+	<div th:replace="sidebar :: sidebar"></div>
+
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">Sobre Triagem | [[${pageTitle}]]</h3>
+			</div>
+
+			<div class="card full-widths">
+				<div class="card-body">
+					<form method="post" th:object="${triagem}">
+						<input type="hidden" id="id" th:field="${id}" />
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="assistente" class="form-label">Laboratorista :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="assistente"
+											th:value="${laboratorista.username}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="paciente" class="form-label">Utente :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control"
+											th:value="${triagem.paciente.codeFullNameAge}"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="updateAt" class="form-label">Serie da Amostra:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="updateAt"
+											th:value="*{updateAt}">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row mb-3">
+							<input type="hidden" class="form-check-input" id="image">
+							<div>
+							   <label for="fileImage" class="col-form-label">Resultados de Amostra:</label>
+							</div>
+							<div>
+							    <input type="file" id="fileImage" class="form-control">
+							</div>
+						</div>
+
+
+						<div class="float-end">
+							<button type="submit" class="btn btn-primary">Entrar</button>
+							<button type="submit" class="btn btn-success">Liberar Resultado</button>
+							<button type="button" class="btn btn-danger" id="cancel">Voltar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+
+	<div th:replace="fragments::modalDialog"></div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#sintomas").richText();
+		});
+		moduleURL = "[[@{/triagem}]]";
+		checkEmailUrl = "[[@{/wsapi/triagem}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/users_form.js}"></script>
+</body>
+</html>

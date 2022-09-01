@@ -11,14 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "roles")
 public class RoleEntity {
@@ -31,5 +29,19 @@ public class RoleEntity {
 	private String roleName;
 	
 	@Column(columnDefinition="text")
-	private String roleDescriptions;
+	private String roleDescription;
+	
+	public RoleEntity(String roleName){
+		this.roleName = roleName;
+	}
+
+	public RoleEntity(String roleName, String roleDescription){
+		this.roleName = roleName;
+		this.roleDescription = roleDescription;
+	}
+	
+	public String toString() {
+		return roleName;
+	}
+
 }

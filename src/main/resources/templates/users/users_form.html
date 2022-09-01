@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head(${pageTitle})"></head>
-<body>
+<body class="bg-light">
 	
 	<div th:replace="sidebar :: sidebar"></div>
 	
@@ -9,50 +9,98 @@
 	<div class="page">
 		<nav th:replace="fragments :: navbar"></nav>
 		<div class="section">
+			<div>
+				<h3 class="text-uppercase">Gestao de Usuarios | [[${pageTitle}]]</h3>
+			</div>
 			
 			<div class="card full-widths">
 				<div class="card-body">
-					<h5 class="card-title">Gestao de Usuarios | [[${pageTitle}]]</h5>
-				</div>
 				
-				<div class="form-center mt-5">
-					<form th:action="@{/users/save}" method="post" th:object="${user}">
-						<div class="mb-3">
-						    <label for="email" class="form-label">E-mail</label>
-						    <input type="email" class="form-control" id="email" th:field="*{email}">
-						</div>
-						<div class="mb-3">
-						    <label for="firstName" class="form-label">Nome</label>
-						    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
-						</div>
-						<div class="mb-3">
-						    <label for="lastName" class="form-label">Apelido</label>
-						    <input type="text" class="form-control" id="lastName" aria-describedby="firstName" th:field="*{lastName}">
-						</div>
-						<div class="mb-3">
-						    <label for="password" class="form-label">Senha</label>
-						    <input type="password" class="form-control" id="password" th:field="*{encryptPassword}">
-						</div>
-						<div class="mb-3 form-check">
-						    <input type="checkbox" class="form-check-input" id="enabled" th:field="*{emailVerificationStatus}">
-						    <label class="form-check-label" for="enabled">Activo</label>
-						</div>
-						<div class="mb-3 form-check">
-						    <input type="hidden" class="form-check-input" id="image" th:field="*{image}">
-						</div>
-						<div class="row g-3 align-items-center">
-							<div class="col-auto">
-							    <label for="inputPassword6" class="col-form-label">Foto Perfil:</label>
+					<div class="form-center">
+						<form th:action="@{/users/save}" method="post" th:object="${user}"
+						onsubmit="return checkEmailIsUnique(this);">
+							<input type="hidden"  id="id" th:field="*{id}"/>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label for="email" class="form-label">E-mail :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="email" class="form-control" id="email" th:field="*{email}">
+							    </div>
 							</div>
-							<div class="col-auto">
-							    <input type="file" id="fileImage" class="form-control">
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label for="firstName" class="form-label">Nome :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+							    </div>
 							</div>
-						</div>
-						<div class="float-end">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
-						</div>
-					</form>
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label for="lastName" class="form-label">Apelido :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="text" class="form-control" id="lastName" aria-describedby="firstName" th:field="*{lastName}">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label for="password" class="form-label">Senha :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="password" class="form-control" id="password" 
+							    th:field="*{encryptPassword}" th:if="${user.id != null}" placeholder="Password">
+							    
+							    <input type="password" class="form-control" id="password" 
+							    th:field="*{encryptPassword}" required th:if="${user.id == null}" placeholder="Password">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+							    <div class="col-md-2">
+							    	<label class="form-check-label" for="enabled">Activo :</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="checkbox" class="form-check-input" id="enabled" th:field="*{emailVerificationStatus}">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3">
+								<input type="hidden" class="form-check-input" id="image" th:field="*{image}">
+								<div class="col-md-2">
+								    <label for="inputPassword6" class="col-form-label">Foto Perfil:</label>
+								</div>
+								<div class="col-md-10">
+								    <input type="file" id="fileImage" class="form-control">
+								</div>
+							</div>
+							
+							<div class="form-group row mb-3" th:if="${user.id != null}">
+							    <div class="col-md-2">
+							    	<label for="createdOn" class="form-label">Criado Em:</label>
+							    </div>
+							    <div class="col-md-10">
+							    	<input type="date" class="form-control" pattern="yyyy-mm-dd" id="createdOn" th:field="*{createdOn}" readonly="readonly">
+							    </div>
+							</div>
+							
+							<div class="form-group row mb-3" th:if="${user.id != null}">
+							   	<div class="col-md-2">
+							   		 <label for="updatedOn" class="form-label">Actualizado Em:</label>
+							   	</div>
+							    <div class="col-md-10">
+							    	<input type="date" class="form-control" pattern="yyyy-mm-dd" id="updatedOn" th:field="*{updatedOn}" readonly="readonly">
+							    </div>
+							</div>
+							<div class="float-end">
+								<button type="submit" class="btn btn-primary">Salvar</button>
+								<button type="button" class="btn btn-danger" id="cancel">Cancelar</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -60,9 +108,13 @@
 	</div>
 	<!-- MAIN CONTENT FINISH -->
 	
+	<div th:replace="fragments::modalDialog"></div>
+	
 	<script type="text/javascript">
 		moduleURL = "[[@{/users}]]";
+		checkEmailUrl = "[[@{/wsapi/users}]]";
 	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/users_form.js}"></script>
 </body>
 </html>

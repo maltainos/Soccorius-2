@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+	<title>Soccorius</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/css/vendors.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/algaworks.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/application.css}"/>
+</head>
+
+<body class="aw-layout-simple-page">
+  <div class="aw-layout-simple-page__container">
+
+		<form th:action="@{/login}" method="post">
+			<div class="aw-simple-panel">
+				<h1>SOCCORIUS</h1>
+				
+				<div class="aw-simple-panel__message">
+					Por favor, faça o login.
+				</div>
+				
+				<div th:if="${param.error}">
+					<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+				</div>
+				
+				<div class="aw-simple-panel__box">
+					<div class="form-group  has-feedback">
+						<input type="text" class="form-control  input-lg" placeholder="Seu e-mail" 
+								name="email" required/>
+						<span class="glyphicon  glyphicon-envelope  form-control-feedback" aria-hidden="true"></span>
+					</div>
+					
+					<div class="form-group  has-feedback">
+						<input type="password" class="form-control  input-lg" placeholder="Sua senha" name="password"/>
+						<span class="glyphicon  glyphicon-lock  form-control-feedback" aria-hidden="true"></span>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn  btn-primary  btn-lg  aw-btn-full-width">Entrar</button>
+					</div>
+					
+					<div class="form-group clearfix">
+						<div class="checkbox  pull-left  aw-checkbox-no-margin">
+							<input type="checkbox" id="lembrar" name="remember-me"/>
+							<label for="lembrar">Lembre de mim</label>
+						</div>
+						
+						<div class="pull-right">
+							<a href="esqueceu-a-senha.html">Esqueceu a senha?</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="aw-simple-panel__footer">Novo por aqui? <a href="#">Cadastre-se</a>.</div>
+			</div>
+		</form>
+
+  </div>
+	
+	<script th:src="@{/js/vendors.min.js}"></script>
+	<script th:src="@{/js/algaworks.min.js}"></script>
+</body>
+</html>

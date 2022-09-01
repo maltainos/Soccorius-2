@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head(${pageTitle})"></head>
-<body>
+<body class="bg-light">
 	
 	<div th:replace="sidebar :: sidebar"></div>
 	
@@ -9,12 +9,11 @@
 	<div class="page">
 		<nav th:replace="fragments :: navbar"></nav>
 		<div class="section">
-			
+			<div>
+				<h3 class="text-uppercase">Gestao de Usuarios</h3>
+			</div>
 			<div class="card full-widths">
 				<div class="card-body">
-					<h5 class="card-title">Gestao de Usuarios</h5>
-				    
-				    
 				    <div th:if="${message != null}" class="alert alert-success d-flex align-items-center">
 				    	<i class="fas fa-circle-check fa-2x"></i> &nbsp;&nbsp;&nbsp;
 				    	<div>
@@ -22,71 +21,44 @@
 						</div>
 				    </div>
 				    
-				    <div class="utility mt-5 mb-1">
-				    	<a type="button" class="btn btn-primary" th:href="@{/users/new}">
-				    		<i class="fas fa-user-plus"></i>
-				    		<span>Novo</span>
-				    	</a>
-						<button type="button" class="btn btn-success">
-							<i class="fas fa-file-pdf"></i>
-				    		<span>PDF</span>
-						</button>
-						
-						<button type="button" class="btn btn-warning">
-							<i class="fas fa-file-csv"></i>
-				    		<span>CSV</span>
-						</button>
-						
-						<button type="button" class="btn btn-info">
-							<i class="fas fa-file-excel"></i>
-				    		<span>EXCEL</span>
-						</button>
-						
-						<form class="float-end">
-							<div class="row g-3 align-items-center">
-								<div class="col-auto">
-								    <label for="inputPassword6" class="col-form-label">Filtrar: </label>
-								</div>
-								<div class="col-auto">
-								    <input type="search" id="search" class="form-control">
-								</div>
-								<div class="col-auto">
-									<button class="btn btn-primary">
-								    	<i class="fas fa-search"></i>
-								    </button>
-								    <button class="btn btn-secondary" onclick="clearSearchForm();">
-								    	<i class="fas fa-eraser"></i>
-								    </button>
-								</div>
-							</div>
-						</form>
-				    </div>
+				    <div th:replace="fragments::utility('/users', ${currentPage}, ${keyword})"></div>
 				    
 				    <table class="table table-responsive table-bordered table-striped table-hover">
 				    	<thead>
 				    		<tr>
 				    			<th>#</th>
-				    			<th>Imagem</th>
-				    			<th>E-mail</th>
+				    			<th class="text-center">Imagem</th>
+				    			<th style="width: 180px">E-mail</th>
 				    			<th>Nome</th>
 				    			<th>Apelido</th>
-				    			<th>Activo</th>
-				    			<th>Permissoes</th>
-				    			<th style="width: 190px"></th>
+				    			<th style="width: 90px">Activo</th>
+				    			<th style="width: 110px">Permissoes</th>
+				    			<th style="width: 110px"></th>
 				    		</tr>
 				    	</thead>
 				    	
 				    	<tbody>
 				    		<tr th:each="user : ${users}">
-				    			<td>[[ ${user.id} ]]</td>
-				    			<td>[[ ${user.image} ]]</td>
-				    			<td>[[ ${user.email} ]]</td>
-				    			<td>[[ ${user.firstName} ]]</td>
-				    			<td>[[ ${user.lastName} ]]</td>
-				    			<td>[[ ${user.emailVerificationStatus} ]]</td>
-				    			<td>[Roles]</td>
-				    			<td>
-				    				<a th:href="@{/}" class="btn btn-primary btn-sm">
+				    			<td class="align-middle">[[ ${user.id} ]]</td>
+				    			<td class="text-center">
+				    				<img class="img-fluid" th:src="@{/images/default-user.png}"/>
+				    			</td>
+				    			<td  class="align-middle">[[ ${user.email} ]]</td>
+				    			<td  class="align-middle">[[ ${user.firstName} ]]</td>
+				    			<td  class="align-middle">[[ ${user.lastName} ]]</td>
+				    			<td  class="align-middle">
+				    				<a th:if="${user.emailVerificationStatus}" class="btn btn-success btn-sm">
+				    					<i class="fas fa-check-circle"></i>
+				    					<span>Activo</span>
+				    				</a>
+				    				<a th:if="${!user.emailVerificationStatus}" class="btn btn-secondary btn-sm">
+				    					<i class="fas fa-circle"></i>
+				    					<span>Inactivo</span>
+				    				</a>
+				    			</td>
+				    			<td  class="align-middle">[[ ${user.roles} ]]</td>
+				    			<td class="text-center align-middle">
+				    				<a th:href="@{'/users/edit/'+${user.id}}" class="btn btn-primary btn-sm mb-2">
 				    					<i class="fas fa-user-edit"></i>
 				    					<span>EDIT</span>
 				    				</a>&nbsp;
@@ -98,6 +70,15 @@
 				    		</tr>
 				    	</tbody>
 				    </table>
+				 
+				    <div class="text-center m-1 text-uppercase" th:unless="${ totalOfElements > 0}">
+				    	Nenhum utilizador encontrado!
+				    </div>
+				   
+				    <th:block th:if="${totalOfElements > 0}">
+				    	<nav th:if="${totalOfElements > 0}" th:replace="fragments::pagination('users',${currentPage},${limit},${keyword},${totalOfPages})"></nav>
+				    </th:block>
+				    
 				</div>
 			</div>
 		</div>
@@ -105,44 +86,24 @@
 	</div>
 	<!-- MAIN CONTENT FINISH -->
 	
-	<!-- MODAL DELETE USER START -->
-		<div class="modal fade text-center" id="modalDeleteUser">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Remover Utilizador</h5>
-					</div>
-					<div class="modal-body">
-						<p id="confimationText"></p>
-					</div>
-					
-					<div class="modal-footer">
-						<a id="yesButton" th:href="@{/}" class="btn btn-danger btn-sm">
-							<i class="fas fa-trash"></i>
-							<span>DELETE</span>
-						</a>
-						<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">
-							<i class="fas fa-close"></i>
-							<span>CANCEL</span>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- MODAL DELTE USER FINISH -->
-	
+	<div th:replace="fragments::modalConfirmation"></div>
+		
 	<script type="text/javascript">
+		moduleURL = "[[@{/users}]]";
+		
 		$('document').ready(function(){
+			
 			$('.link-delete').on('click', function(e){
 				e.preventDefault();
 				
 				link = $(this);
 				userName = link.attr('userName');
 				$('#yesButton').attr('href', link.attr('href'));
-				$('#confimationText').text("Deseja remover usuario :"+userName+"?");
-				$('#modalDeleteUser').modal('show');
+				showModalConfirmation("Deseja remover Usuario: "+userName+"?");
 			});
+			
 		});
+		
 	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
 </body>
