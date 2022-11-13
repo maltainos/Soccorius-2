@@ -1,5 +1,8 @@
 package com.soccoriusapp.mvc.controller.web;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.soccoriusapp.mvc.entity.LaboratorioEntity;
 import com.soccoriusapp.mvc.entity.Paciente;
 import com.soccoriusapp.mvc.entity.Triagem;
 import com.soccoriusapp.mvc.entity.UserEntity;
@@ -86,11 +90,24 @@ public class TriagemController {
 	public String showTriagemLaboratorioResult(@AuthenticationPrincipal SoccoriusUserDetails authUser, @PathVariable Integer id, Model model) {
 
 		Triagem triagem = triagemService.getTriagem(id);
+		LaboratorioEntity laboratorio = new LaboratorioEntity();
 		
-		model.addAttribute("pageTitle", "Resultados de Laboratorio");
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+		String amostraSerie = dateFormat.format(date);
+		
+		laboratorio.setSerieAmostra(amostraSerie.concat(""+triagem.getTriagemNumber()));
+		laboratorio.setMedicoRequisitante(authUser.getUser());
+		laboratorio.setPaciente(triagem.getPaciente());
+		laboratorio.setLaboratorista(authUser.getUser());
+		laboratorio.setTriagem(triagem);
+		laboratorio.setHoraEntrada(LocalDateTime.now());
+		
+		model.addAttribute("pageTitle", "Exames de Laboratorio");
 		
 		model.addAttribute("laboratorista", authUser);
 		model.addAttribute("triagem", triagem);
+		model.addAttribute("laboratorio", laboratorio);
 		return "triagem/triagem_laboratorio";
 	}
 

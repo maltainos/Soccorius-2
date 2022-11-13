@@ -8,6 +8,6 @@ import com.soccoriusapp.mvc.entity.Paciente;
 public interface LaboratorioService {
 	
 	Long countLaboratorios();
-	Paciente createLaboratorio(LaboratorioEntity laboratorio);
-	Page<Paciente> searchLaboratorios(int page, int limit, String sortColumn, String sortMode, String keyword);
+	LaboratorioEntity createLaboratorio(LaboratorioEntity laboratorio);
+	Page<LaboratorioEntity> searchLaboratorios(int page, int limit, String sortColumn, String sortMode, String keyword);
 }

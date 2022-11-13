@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.soccoriusapp.mvc.entity.InternadoEntity;
 import com.soccoriusapp.mvc.entity.Triagem;
@@ -35,11 +36,12 @@ public class InternadoController {
 			@RequestParam(name = "limit", defaultValue = "10") int limit,
 			@RequestParam(name = "sortColumn", defaultValue = "id") String sortColumn,
 			@RequestParam(name = "sortMode", defaultValue = "asc") String sortMode,
-			@RequestParam(name = "keyword", defaultValue = "keyword") String keyword, Model model) {
+			@RequestParam(name = "keyword", defaultValue = "") String keyword, Model model) {
 
 		Page<InternadoEntity> internados = internadoService.getInternados(page, limit, sortColumn,
 				sortMode);
 
+		model.addAttribute("pageTitle", "Pacientes Internados");
 		model.addAttribute("currentPage", page);
 		model.addAttribute("limit", limit);
 		model.addAttribute("keyword", keyword);
@@ -52,7 +54,7 @@ public class InternadoController {
 	}
 	
 	@RequestMapping(value = "/paciente/{pCode}/triagem/{tId}/internar", method = RequestMethod.GET)
-	public String showTransferirPage(@AuthenticationPrincipal SoccoriusUserDetails authUser, 
+	public String showInternarPacientePage(@AuthenticationPrincipal SoccoriusUserDetails authUser, 
 			@PathVariable String pCode, @PathVariable Integer tId, Model model) {
 		
 		Triagem triagem = triagemService.getTriagem(tId);
@@ -68,10 +70,12 @@ public class InternadoController {
 	}
 	
 	@RequestMapping(value = "/internar/save", method = RequestMethod.POST)
-	public String showTransferirPage(@AuthenticationPrincipal SoccoriusUserDetails authUser, InternadoEntity internado) {
+	public String showTransferirPage(@AuthenticationPrincipal SoccoriusUserDetails authUser, 
+			InternadoEntity internado, RedirectAttributes attributes) {
 		
 		InternadoEntity savedInternado = internadoService.internar(authUser.getUser(), internado);
-		
-		return "redirect:/paciente/"+savedInternado.getPaciente().getPacienteCode()+"/triagem/"+savedInternado.getTriagem().getId()+"/internar";
+		attributes.addFlashAttribute("message", "Paciente "+savedInternado.getPaciente()
+				.getCodeFullNameAge()+" internado com Sucesso!");
+		return "redirect:/internados/page/1?keyword="+savedInternado.getInternadoId();
 	}
 }

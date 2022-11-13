@@ -43,7 +43,7 @@
 				    			<td>[[${internado.dataInternamento}]]</td>
 				    			<td>[[${internado.dataAlta}]]</td>
 				    			<td>
-				    				<a class="btn btn-sm btn-primary" title="Sobre a Transferencia">
+				    				<a th:href="@{'/paciente/'+${internado.paciente.pacienteCode}+'/triagem/'+${internado.triagem.id}+'/internar'}" class="btn btn-sm btn-primary" title="Sobre a Transferencia">
 				    					<i class="fas fa-plus-circle"></i>
 				    				</a>
 				    			</td>

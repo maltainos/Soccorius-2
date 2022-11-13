@@ -51,6 +51,7 @@ public class InternadoEntity {
 	@DateTimeFormat(pattern = "d, MMM uuuu, HH:mm:ss")
 	private LocalDateTime dataInternamento = LocalDateTime.now();
 	
+	@DateTimeFormat(pattern = "d, MMM uuuu, HH:mm:ss")
 	private LocalDateTime dataAlta;
 	
 	@ManyToOne

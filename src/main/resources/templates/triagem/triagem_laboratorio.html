@@ -9,14 +9,19 @@
 	<div class="page">
 		<nav th:replace="fragments :: navbar"></nav>
 		<div class="section">
-			<div>
+			<!--div>
 				<h3 class="text-uppercase">Sobre Triagem | [[${pageTitle}]]</h3>
-			</div>
+			</div-->
 
 			<div class="card full-widths">
 				<div class="card-body">
-					<form method="post" th:object="${triagem}">
+					<form th:action="@{/laboratorios/save}" method="post" th:object="${laboratorio}">
 						<input type="hidden" id="id" th:field="${id}" />
+						<input type="hidden" th:field="*{triagem}"/>
+						<input type="hidden" th:field="*{laboratorista}"/>
+						<input type="hidden" th:field="*{medicoRequisitante}"/>
+						<input type="hidden" th:field="*{paciente}" />
+						
 						<div class="row">
 							<div class="col-6">
 								<div class="mb-3">
@@ -24,11 +29,24 @@
 										<label for="assistente" class="form-label">Laboratorista :</label>
 									</div>
 									<div>
-										<input type="text" class="form-control" id="assistente"
-											th:value="${laboratorista.username}" readonly="readonly">
+										<input type="text" class="form-control" id="medico" th:value="${laboratorio.laboratorista.fullName}" readonly />
 									</div>
 								</div>
 							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="medico" class="form-label">Medico Responsavel :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="medico"
+											th:value="${laboratorio.medicoRequisitante.fullName}" readonly />	
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
 							<div class="col-6">
 								<div class="mb-3">
 									<div>
@@ -36,8 +54,19 @@
 									</div>
 									<div>
 										<input type="text" class="form-control"
-											th:value="${triagem.paciente.codeFullNameAge}"
-											readonly="readonly" />
+											th:value="${laboratorio.paciente.codeFullNameAge}" readonly />
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="serieAmostra" class="form-label">Serie da Amostra:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="serieAmostra"
+											th:field="*{serieAmostra}" readonly />
 									</div>
 								</div>
 							</div>
@@ -47,11 +76,15 @@
 							<div class="col-12">
 								<div class="mb-3">
 									<div>
-										<label for="updateAt" class="form-label">Serie da Amostra:</label>
+										<label for="tipoExame" class="form-label">Tipo de Exame:</label>
 									</div>
 									<div>
-										<input type="text" class="form-control" id="updateAt"
-											th:value="*{updateAt}">
+										<select class="form-select" id="typeExam" th:field="*{tipoExame}" 
+												multiple style="resize:vertical; height: 90px;">
+											<option value="tac1">TAC 1</option>
+											<option value="tac2">TAC 2</option>
+											<option value="tac3">TAC 3</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -63,15 +96,39 @@
 							   <label for="fileImage" class="col-form-label">Resultados de Amostra:</label>
 							</div>
 							<div>
-							    <input type="file" id="fileImage" class="form-control">
+							    <input type="file" id="fileImage" class="form-control" />
 							</div>
 						</div>
 
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+							    	<div>
+							    		<label for="horaEntrada" class="form-label">Data e Hora de Entrada:</label>
+							    	</div>
+								    <div>
+								    	<input type="text" class="form-control" id="horaEntrada" 
+								    	th:field="*{horaEntrada}" placeholder="Data e Hora de Entrada" readonly />
+								    </div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+							    	<div>
+							    		<label for="horaSaida" class="form-label">Data e Hora de Saida:</label>
+							    	</div>
+								    <div>
+								    	<input type="text" class="form-control" id="horaSaida" 
+								    	th:field="*{horaSaida}" placeholder="Data e Hora de Entrada" readonly />
+								    </div>
+								</div>
+							</div>
+						</div>
 
 						<div class="float-end">
 							<button type="submit" class="btn btn-primary">Entrar</button>
 							<button type="submit" class="btn btn-success">Liberar Resultado</button>
-							<button type="button" class="btn btn-danger" id="cancel">Voltar</button>
+							<button type="button" class="btn btn-danger" id="btnCancel">Voltar</button>
 						</div>
 					</form>
 				</div>
