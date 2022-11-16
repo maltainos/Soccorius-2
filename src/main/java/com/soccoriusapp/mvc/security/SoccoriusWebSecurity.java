@@ -41,19 +41,20 @@ public class SoccoriusWebSecurity extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		http.authorizeRequests()
-			.antMatchers("/users/**").hasAuthority("Admin")
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
-				.loginPage("login")
-				.usernameParameter("email")
-				.permitAll()
-			.and().logout().permitAll()
-			.and()
-			.rememberMe()
-				.key("acchcgcBCVfdsIOCGojg13vy85f43c0k98nbcx7")
-				.tokenValiditySeconds(7 * 24 * 60 * 60);
+		.antMatchers("/users/**").hasAuthority("Admin")
+		.anyRequest().authenticated()
+		.and()
+		.formLogin()
+			.loginPage("/login")
+			.usernameParameter("email")
+			.permitAll()
+		.and().logout().permitAll()
+		.and()
+		.rememberMe()
+			.key("acchcgcBCVfdsIOCGojg13vy85f43c0k98nbcx7")
+			.tokenValiditySeconds(7 * 24 * 60 * 60);
 	}
 
 	@Override
