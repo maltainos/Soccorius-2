@@ -2,7 +2,7 @@
 function checkEmailIsUnique(form){
 	idValue = $("#id").val();
 	emailValue = $("#email").val();
-	csrfValue = $("input[name = '_crsf']").val();
+	csrfValue = $("input[name = '_csrf']").val();
 	
 	params = {id : idValue , email : emailValue , _csrf : csrfValue};
 	

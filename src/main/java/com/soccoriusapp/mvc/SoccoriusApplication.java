@@ -15,6 +15,10 @@ public class SoccoriusApplication {
 		SpringApplication.run(SoccoriusApplication.class, args);
 	}
 
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
 	
 	@GetMapping(path = "/login")

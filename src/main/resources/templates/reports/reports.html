@@ -3,7 +3,7 @@
 <head th:replace="fragments :: html_head(${pageTitle})"></head>
 <body class="bg-light">
 	<div th:replace="sidebar :: sidebar"></div>
-	
+
 	<div class="page">
 		<nav th:replace="fragments :: navbar"></nav>
 		<div class="section">
@@ -13,40 +13,71 @@
 			<div class="card full-widths">
 				<div class="card-body">
 					<!-- MESSAGE START -->
-					<div th:if="${message != null}" class="alert alert-sm alert-success d-flex align-items-center">
+					<div th:if="${message != null}"
+						class="alert alert-sm alert-success d-flex align-items-center">
 						<i class="fas fa-circle-check fa-2x"></i> &nbsp;&nbsp;&nbsp;
-				    	<div>
-						    [[ ${message} ]]
-						</div>
+						<div>[[ ${message} ]]</div>
 					</div>
 					<!-- MESSAGE FINISH -->
-					
-					<!-- UTILITY START -->
-					<div th:replace="fragments::utility('/reports', ${currentPage}, ${keyword})"></div>
-					<!-- UTILITY FINISH -->
-					
-					 <table class="table table-responsive table-bordered table-striped table-hover">
-				    	<thead>
-				    		<tr>
-				    			<th>#</th>
-				    			<th>ID Tran.</th>
-				    			<th>Nome</th>
-				    			<th>Descricao:</th>
-				    			<th style="width: 190px"></th>
-				    		</tr>
-				    	</thead>
-				    	
-				    	<tbody>
-				    	
-				    	</tbody>
-				    </table>
+
+					<form>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="firstName" class="form-label">Doenca</label> <input
+									type="text" class="form-control" placeholder="Doenca" id="doenca">
+							</div>
+							<div class="col-md-6">
+								<label for="lastName" class="form-label">Bairo</label> <input
+									type="text" class="form-control" placeholder="Bairro de Pesquisa" id="bairo">
+							</div>
+							
+						</div>
+						
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="firstName" class="form-label">A partir De</label> <input
+									type="date" class="form-control" placeholder="Periodo Inicial" id="startDate">
+							</div>
+							<div class="col-md-6">
+								<label for="lastName" class="form-label">Ate</label> <input
+									type="date" class="form-control" placeholder="Perido Final" id="endDate">
+							</div>
+							
+						</div>
+						<div class="float-end">
+							<button class="btn btn-primary" id="findReport">Buscar</button>
+							<button type="button" class="btn btn-danger" id="cancel"></button>
+						</div>
+					</form>
+
+
+
+					<table
+						class="table table-responsive table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>ID Tran.</th>
+								<th>Nome</th>
+								<th>Sexo:</th>
+								<th>Descricao:</th>
+								<th style="width: 190px"></th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
 		moduleURL = "[[@{/reports}]]";
+		reportUrl = "[[@{/wsapi/reports}]]";
 	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/repport.js}"></script>
 </body>
 </html>

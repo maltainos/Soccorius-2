@@ -29,10 +29,12 @@ btnBars.onclick = function(){
 	page.classList.toggle('full-width');
 }
 
+/*
 search.onclick = function(){
 	sidebar.classList.toggle('active');
 	page.classList.toggle('full-width');
 }
+*/
 
 function customizeDropDown(){
 	$(".navbar .dropdown").hover(

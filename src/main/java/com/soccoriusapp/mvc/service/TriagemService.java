@@ -18,4 +18,6 @@ public interface TriagemService {
 
 	Long countTriagens();
 
+	Triagem findReport(String doenca, String bairo, String dateStart, String dateEnd);
+
 }

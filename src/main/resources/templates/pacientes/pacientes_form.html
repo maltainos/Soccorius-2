@@ -39,7 +39,7 @@
 							</div>
 							<div class="col-md-4">
 								<label for="yearsOld" class="form-label">Idade</label>
-								<input type="text" class="form-control" placeholder="Idade" aria-label="Idade" th:field="*{yearsOld}">
+								<input type="text" class="form-control"  aria-label="Idade" id="yearsOld" name="yearsOld">
 							</div>
 						</div>
 					
@@ -84,5 +84,6 @@
 		moduleURL = "[[@{/pacientes}]]";
 	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/paciente_form.js}"></script>
 </body>
 </html>

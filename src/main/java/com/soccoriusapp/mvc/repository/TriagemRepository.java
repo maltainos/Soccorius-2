@@ -23,4 +23,8 @@ public interface TriagemRepository extends PagingAndSortingRepository<Triagem, I
 	@Query("UPDATE Triagem t SET t.triagemStatus = ?1 WHERE t.id = ?2")
 	@Modifying
 	public void setFinish( boolean status, Integer triagemId);
+	
+	
+	//@Query("SELECT t FROM Triagenm t INNER JOIN Paciente p WHERE t.sintomas LIKE '%1?%' and t.create_at between 3?' AND '4?' AND p.address LIKE '%2?%' AND p.id = t.paciente_id")
+	//public Triagem report(String doenca, String bairo, String start, String endp);
 }

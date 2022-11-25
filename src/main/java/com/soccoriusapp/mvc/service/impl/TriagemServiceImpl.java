@@ -72,4 +72,10 @@ public class TriagemServiceImpl implements TriagemService {
 		return triagemRepository.count();
 	}
 
+	@Override
+	public Triagem findReport(String doenca, String bairo, String dateStart, String dateEnd) {
+		return new Triagem();
+		
+	}
+
 }
