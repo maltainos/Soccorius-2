@@ -47,7 +47,9 @@ public class PacienteServiceImpl implements PacienteService{
 
 	@Override
 	public Paciente createPaciente(Paciente paciente) {
-		
+		LocalDate today = LocalDate.now();
+		int yearsOld = today.getYear() - paciente.getDateOfBirth().getYear(); 
+		paciente.setYearsOld(yearsOld);
 		paciente.setPacienteCode(utils.getGeneratedPacienteCode(4, 6));
 		paciente.setCreatedOn(LocalDate.now());
 		Paciente savePaciente = pacienteRepository.save(paciente);

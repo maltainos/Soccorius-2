@@ -50,7 +50,7 @@ public class Paciente {
 	
 	private String phone;
 	
-	private int yearsOld;
+	private int yearsOld = 0;
 	
 	private String placeOfBirth;
 	
