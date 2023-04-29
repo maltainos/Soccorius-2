@@ -1,6 +1,6 @@
 package com.soccoriusapp.mvc.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,9 +48,12 @@ public class Triagem {
 	@Column(name = "triagem_status", columnDefinition = "Boolean default false")
 	private Boolean triagemStatus = false;
 
-	@DateTimeFormat(pattern = "d, MMM uuuu, HH:mm:ss")
-	private LocalDateTime createAt = LocalDateTime.now();
+	@Column(nullable = true, length = 256)
+	private String doenca;
+
+	@DateTimeFormat(pattern = "d, MMM uuuu")
+	private LocalDate createAt = LocalDate.now();
 	
-	private LocalDateTime updateAt;
+	private LocalDate updateAt;
 
 }

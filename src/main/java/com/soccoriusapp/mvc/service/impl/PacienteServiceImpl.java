@@ -1,6 +1,8 @@
 package com.soccoriusapp.mvc.service.impl;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.soccoriusapp.mvc.entity.Paciente;
+import com.soccoriusapp.mvc.model.rest.ReportIncomeWeklyRest;
 import com.soccoriusapp.mvc.repository.PacienteRepository;
 import com.soccoriusapp.mvc.service.PacienteService;
 import com.soccoriusapp.mvc.service.exception.PacienteNotFoundException;
@@ -75,6 +78,29 @@ public class PacienteServiceImpl implements PacienteService{
 	public List<Paciente> getPacientes() {
 		
 		return (List<Paciente>) pacienteRepository.findAll();
+	}
+
+	@Override
+	public List<ReportIncomeWeklyRest> getWeeklyIncome(LocalDate startAt, LocalDate endAt) {
+		List<ReportIncomeWeklyRest> findValue = pacienteRepository.reportPerWeek(endAt, startAt);
+		
+		List<ReportIncomeWeklyRest> returnValue = new ArrayList<ReportIncomeWeklyRest>();
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.SUNDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.MONDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.THURSDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.WEDNESDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.TUESDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.FRIDAY.toString(),0l));
+		returnValue.add(new ReportIncomeWeklyRest(DayOfWeek.SATURDAY.toString(),0l));
+		
+		findValue.forEach(fValue -> {
+			returnValue.forEach(rValue -> {
+				if(rValue.getDayOfWeek().equalsIgnoreCase(fValue.getDayOfWeek())) {
+					rValue.setIncomeQtd(fValue.getIncomeQtd());
+				}
+			});
+		});
+		return returnValue;
 	}
 	
 	

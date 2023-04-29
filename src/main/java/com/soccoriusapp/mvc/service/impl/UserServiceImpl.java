@@ -1,6 +1,7 @@
 package com.soccoriusapp.mvc.service.impl;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +109,11 @@ public class UserServiceImpl implements UserService{
 		if(!checkedUser.isPresent()) throw new UserNotFoundException("Usuario nao encontrado!");
 		
 		return null;
+	}
+
+	@Override
+	public List<UserEntity> findAll() {
+		return userRepository.findAll();
 	}
 	
 

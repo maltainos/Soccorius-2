@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head(${pageTitle})"></head>
+<body class="bg-light">
+
+	<div th:replace="sidebar :: sidebar"></div>
+
+	<!-- MAIN CONTENT START -->
+	<div class="page">
+		<nav th:replace="fragments :: navbar"></nav>
+		<div class="section">
+			<div>
+				<h3 class="text-uppercase">Sobre Triagem | [[${pageTitle}]]</h3>
+			</div>
+
+			<div class="card full-widths">
+				<div class="card-body">
+					
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="assistente" class="form-label">Agente de
+											Saude :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="assistente" name="fullName"
+											th:value="${assistente.fullName}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="paciente" class="form-label">Utente :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" name="codeFullNameAge"
+											th:value="${triagem.paciente.codeFullNameAge}"
+											readonly="readonly" />
+									</div>
+								</div>
+							</div>
+						</div>
+			
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="sintomas" class="form-label">Sintomas :</label>
+									</div>
+									<div>
+										<textarea type="text" name="sintomas" class="form-control" rows="3" readonly="readonly"> [[ ${triagem.sintomas} ]]</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+	
+						<div class="row">
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="updateAt" class="form-label">Data e Hora de
+											Saida:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" name="updateAt" id="updateAt"
+											th:value="${triagem.updateAt}" readonly="readonly">
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="mb-3">
+									<div>
+										<label for="createAt" class="form-label">Data e Hora de
+											Entrada:</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="createAt"
+											th:value="${triagem.createAt}" name="createAt"
+											placeholder="Data e Hora de Entrada" readonly="readonly">
+									</div>
+								</div>
+							</div>
+						</div>
+					<form method="post" th:object="${receita}" th:action="@{/triagem/save/receita}">
+
+						<input type="hidden" th:field="*{triagem}"/>
+						
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="assistente" class="form-label">Doenca :</label>
+									</div>
+									<div>
+										<input type="text" class="form-control" id="assistente" name="doenca">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-12">
+								<div class="mb-3">
+									<div>
+										<label for="medicamentos" class="form-label">Medicamentos
+											:</label>
+									</div>
+									<div>
+										<textarea type="text" class="form-control"
+											th:field="*{medicamentos}" rows="3"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="float-end">
+							<a th:href="@{'/triagem/'+${triagem.id}+'/details'}" type="button"
+								class="btn btn-danger">Voltar</a>
+								
+							<button type="submit" class="btn btn-success">Salvar</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- MAIN CONTENT FINISH -->
+
+	<div th:replace="fragments::modalDialog"></div>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#medicamentos").richText();
+		});
+		moduleURL = "[[@{/triagem}]]";
+		checkEmailUrl = "[[@{/wsapi/triagem}]]";
+	</script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script type="text/javascript" th:src="@{/js/users_form.js}"></script>
+</body>
+</html>

@@ -20,7 +20,7 @@ public class LaboratorioServiceImpl implements LaboratorioService{
 	@Override
 	public Long countLaboratorios() {
 		// TODO Auto-generated method stub
-		return 0l;
+		return laboratorioRepository.count();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class LaboratorioServiceImpl implements LaboratorioService{
 		Pageable pageable = PageRequest.of(page, limit, sort);
 		
 
-		Page<LaboratorioEntity> pageOfLaboratorio = laboratorioRepository.findAll(pageable);
+		Page<LaboratorioEntity> pageOfLaboratorio = laboratorioRepository.findAll(keyword,pageable);
 		return pageOfLaboratorio;
 	}
 

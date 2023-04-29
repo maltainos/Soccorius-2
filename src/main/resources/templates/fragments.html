@@ -159,17 +159,17 @@
 				<i class="fas fa-user-plus"></i>
 				<span>Novo</span>
 			</a>
-			<button type="button" class="btn btn-success">
+			<button type="button" class="btn btn-success" id="usersPdfExport">
 				<i class="fas fa-file-pdf"></i>
 				<span>PDF</span>
 			</button>
 							
-			<button type="button" class="btn btn-warning">
+			<button type="button" class="btn btn-warning" id="usersCsvExport">
 				<i class="fas fa-file-csv"></i>
 				<span>CSV</span>
 			</button>
 							
-			<button type="button" class="btn btn-info">
+			<button type="button" class="btn btn-info" id="usersExcelExport">
 				<i class="fas fa-file-excel"></i>
 				<span>EXCEL</span>
 			</button>
@@ -211,6 +211,6 @@
 		</div>
 	</div>
 	<!-- FRAGMENT UTILITY START-->
-	
+	<a th:fragment="tableHeader(urlBase, page, keyword, sortMode, sortColumn, value)" th:href="@{'/'+${urlBase}+'/page/'+${page}+'?keyword='+${keyword}+'&limit='+${limit}+'&sortMode='+${reverseSortMode}+'&sortColumn=paciente.pacienteCode'}">[[ ${value} ]]</a>
 </body>
 </html>

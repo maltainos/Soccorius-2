@@ -24,7 +24,12 @@ public class SoccoriusWebSecurityConfig {
 	public UserDetailsService userDetailService() {
 		return new SoccoriusUserDetailService();
 	}
-
+	
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+		return authConfig.getAuthenticationManager();
+	}
+	
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 		authenticationProvider.setUserDetailsService(userDetailService());
@@ -34,23 +39,25 @@ public class SoccoriusWebSecurityConfig {
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-		return authConfig.getAuthenticationManager();
-	}
-	
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/**").hasAuthority("Admin")
-				.anyRequest().authenticated().and().formLogin(form -> {
-					try {
-						form.loginPage("login").loginProcessingUrl("login").usernameParameter("email")
-								.defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll().and()
-								.logout().logoutSuccessUrl("/login?logout=true").permitAll().and().rememberMe()
-								.key("acchcgcBCVfdsIOCGojg13vy85f43c0k98nbcx7").tokenValiditySeconds(7 * 24 * 60 * 60);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				});
 
+		  http
+		  	.authorizeHttpRequests((requests) -> 
+		  		requests
+		  			.anyRequest().authenticated()
+		  	).formLogin((form) -> 
+		  		form
+		  			.loginPage("/login")
+		  			.usernameParameter("email")
+		  			.defaultSuccessUrl("/")
+		  			.permitAll()
+		  	).logout((logout) -> 
+		  		logout
+		  			.permitAll()
+		  	).rememberMe()
+		  		.key("WebTokenRememberEquillibriumMaltainosDeveloper")
+		  		.tokenValiditySeconds(60 * 60 * 60);
+		  
 		return http.build();
 	}
 	

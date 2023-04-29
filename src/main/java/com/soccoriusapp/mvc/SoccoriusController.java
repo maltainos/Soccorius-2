@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soccoriusapp.mvc.service.impl.EncaminhaServiceImpl;
 import com.soccoriusapp.mvc.service.impl.InternadoServiceImpl;
@@ -58,6 +59,15 @@ public class SoccoriusController {
 		model.addAttribute("totalOfTransferencias", transferenciaService.countTransferencias());
 		
 		return "index";
+	}
+	
+	@GetMapping(path = "/vendors/bootstrap/fonts/glyphicons-halflings-regular.ttf")
+	public String redirectDefault(Model model, @RequestParam(name = "v", defaultValue = "") String v) {
+		return "redirect:/";
+	}
+	@GetMapping(path = "/vendors/font-awesome/fonts/fontawesome-webfont.ttf")
+	public String redirectParam(Model model, @RequestParam(name = "v", defaultValue = "") String v) {
+		return "redirect:/";
 	}
 	
 }

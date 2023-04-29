@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: html_head(${pageTitle})"></head>
+<script th:src="@{/js/charts/loader.js}"></script>
 <body class="bg-light">
 	
 	<div th:replace="sidebar :: sidebar"></div>
@@ -59,7 +60,7 @@
 				        	<div class="card-text">
 				        		<span class="dashboard-number">[[${totalOfConsultas}]]</span>
 				        	</div>
-				        	<a th:href="@{/consultas}" class="btn btn-outline-light text-white float-end">
+				        	<a th:href="@{/triagem}" class="btn btn-outline-light text-white float-end">
 				        		<span>Ver mais</span>
 				        		<i class="fas fa-arrow-right"></i>
 				        	</a>
@@ -148,12 +149,12 @@
 				    	<div class="card-body">
 				        	<h5 class="card-title">
 				        		<i class="fas fa-users fa-2x"></i>
-				        		<span class="text-capitalize">Encaminhados</span>
+				        		<a  th:href="@{/encaminhados}" class="text-capitalize">Encaminhados</a>
 				        	</h5>
 				        	<div class="card-text">
 				        		<span class="dashboard-number">[[${totalOfEncaminhados}]]</span>
 				        	</div>
-				        	<a th:href="@{/encaminhados}" class="btn btn-outline-secondary text-white float-end">
+				        	<a th:href="@{/encaminhados}" class="btn btn-sm btn-outline-secondary text-white float-end">
 				        		<span>Ver mais</span>
 				        		<i class="fas fa-arrow-right"></i>
 				        	</a>
@@ -164,46 +165,57 @@
 			<!-- ROW FINISH -->
 			
 			<div class="row mb-2">
-				<div class="col-sm-12 col-md-8">
+				<div class="col-sm-12 col-md-6">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">
-								<span class="text-uppercase">Obitos de Hoje</span>
-								<hr/>
-							</h5>
+							<h6 class="card-title">
+								<span class="text-uppercase">General Data</span>
+							</h6>
+							<canvas id="general"></canvas>
 						</div>
 					</div>		
 				</div>
-				<div class="col-sm-12 col-md-4">
+				<div class="col-sm-12 col-md-6">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">
-								<span class="text-uppercase">Obitos de Hoje</span>
-								<hr/>
-							</h5>
+							<h6 class="card-title">
+								<span class="text-uppercase">Week Income Data</span>
+							</h6>
+							<canvas id="week"></canvas>
 						</div>
 					</div>	
 				</div>
+				<!-- 
+				<div class="col-sm-12 col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h6 class="card-title">
+								<span class="text-uppercase">Week Income Data</span>
+							</h6>
+							<canvas id="weekPercent"></canvas>
+						</div>
+					</div>	
+				</div>
+				 -->
 			</div>
 			
 			
 			<div class="row mb-2">
-				<div class="col-sm-12 col-md-4">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">
-								<span class="text-uppercase">Entradas de Hoje</span>
-								<hr/>
-							</h5>
-						</div>
-					</div>		
-				</div>
 				<div class="col-sm-12 col-md-8">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">
-								<span class="text-uppercase">Transferencias de Hoje</span>
-								<hr/>
+								<span class="text-uppercase">Ultimo Ano</span>
+							</h5>
+							<canvas id="annual"></canvas>
+						</div>
+					</div>		
+				</div>
+				<div class="col-sm-12 col-md-4">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								<span class="text-uppercase">Casos Gerais</span>
 							</h5>
 						</div>
 					</div>	
@@ -213,7 +225,12 @@
 		</div>
 	</div>
 	<!-- MAIN CONTENT FINISH -->
-	
+	<script>
+		reportCaseURL = "[[@{/wsapi/dashboard}]]";
+		weekURL = "[[@{/wsapi/dashboard/week}]]";
+		annualURL = "[[@{/wsapi/dashboard/annual}]]";
+	</script>
 	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/charts/appcharts.js}"></script>
 </body>
 </html>

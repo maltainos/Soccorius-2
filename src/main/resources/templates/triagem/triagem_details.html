@@ -15,6 +15,14 @@
 
 			<div class="card full-widths">
 				<div class="card-body">
+					
+					<div th:if="${message != null}" class="alert alert-success d-flex align-items-center">
+				    	<i class="fas fa-circle-check fa-2x"></i> &nbsp;&nbsp;&nbsp;
+				    	<div>
+						    [[ ${message} ]]
+						</div>
+				    </div>
+					
 					<form method="post" th:object="${triagem}">
 						<div class="row mb-3">
 							<div class="float-end">
@@ -22,10 +30,9 @@
 								<button type="button" class="btn btn-primary">Bloco
 									Operatorio</button>
 								<a th:href="@{'/triagem/details/'+${triagem.id}+'/laboratorio'}" class="btn btn-warning">Laboratorio</a>
-								<button type="button" class="btn btn-success">Consulta Simples</button>
 								<a th:href="@{'/triagem/paciente/'+${triagem.id}+'/transferir'}" type="button" class="btn btn-info">Transferir</a>
 								<button type="button" class="btn btn-dark">Imagiologia</button>
-								<button type="button" class="btn btn-ligth btn-outline-secondary">Receitas</button>
+								<a th:href="@{'/triagem/'+${triagem.id}+'/receita'}" type="button" class="btn btn-ligth btn-outline-secondary">Receitas</a>
 							</div>
 						</div>
 						<hr/>

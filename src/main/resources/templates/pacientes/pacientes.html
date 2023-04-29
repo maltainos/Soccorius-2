@@ -50,14 +50,9 @@
 				    			<td>[[${paciente.yearsOld}]] Anos</td>
 				    			<td>[[${paciente.phone}]]</td>
 				    			<td class="text-center">
-				    				<button class="link-about btn btn-secondary btn-sm" data-bs-toggle="tooltip" 
-				    					data-bs-placement="top" title="Sobre Paciente">
-										<i class="fas fa-folder"></i>
-									</button>
-									<button class="link-medical btn btn-success btn-sm" data-bs-toggle="tooltip" 
-										data-bs-placement="top" title="Ficha Paciente">
+									<a class="btn btn-success btn-sm" th:href="@{'/paciente/'+${paciente.id}+'/consultas'}" title="Ficha Paciente">
 										<i class="fas fa-folder-plus"></i>
-									</button>
+									</a>
 									<a class="btn btn-primary btn-sm" data-bs-toggle="tooltip" 
 									data-bs-placement="top" title="Editar Paciente" th:href="@{'/pacientes/edit/'+${paciente.id}}">
 										<i class="fas fa-user-edit"></i>
@@ -88,7 +83,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">
-						<span class="text-center text-uppercase">informacao do paciente</span>
+						<span class="text-center text-uppercase">Informacao do paciente</span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>

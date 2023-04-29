@@ -1,5 +1,6 @@
 package com.soccoriusapp.mvc.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +9,9 @@ import com.soccoriusapp.mvc.service.EncaminhadoService;
 
 @Service
 public class EncaminhaServiceImpl implements EncaminhadoService{
+	
+	@Autowired
+	private TransferenciaServiceImpl triagemRepository;
 
 	@Override
 	public Long countEncaminhados() {

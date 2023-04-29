@@ -20,27 +20,32 @@
 					</div>
 					<!-- MESSAGE FINISH -->
 
-					<form>
+					<form id="formFindReport">
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="firstName" class="form-label">Doenca</label> <input
 									type="text" class="form-control" placeholder="Doenca" id="doenca">
+									<small id="doencaRequiredMessage" style="color: red"></small>
 							</div>
 							<div class="col-md-6">
-								<label for="lastName" class="form-label">Bairo</label> <input
+								<label for="lastName" class="form-label">Bairro</label> <input required="required"
 									type="text" class="form-control" placeholder="Bairro de Pesquisa" id="bairo">
+									<small id="bairroRequiredMessage" style="color: red"></small>
 							</div>
 							
 						</div>
 						
 						<div class="row mb-3">
 							<div class="col-md-6">
-								<label for="firstName" class="form-label">A partir De</label> <input
+								<label for="firstName" class="form-label">A partir De</label> 
+								<input
 									type="date" class="form-control" placeholder="Periodo Inicial" id="startDate">
+									<small id="startDateRequiredMessage" style="color: red"></small>
 							</div>
 							<div class="col-md-6">
 								<label for="lastName" class="form-label">Ate</label> <input
 									type="date" class="form-control" placeholder="Perido Final" id="endDate">
+									<small id="endDateRequiredMessage" style="color: red"></small>
 							</div>
 							
 						</div>
@@ -52,23 +57,22 @@
 
 
 
-					<table
-						class="table table-responsive table-bordered table-striped table-hover">
+					<table class="table table-responsive table-bordered table-striped table-hover">
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>ID Tran.</th>
 								<th>Nome</th>
-								<th>Sexo:</th>
-								<th>Descricao:</th>
-								<th style="width: 190px"></th>
+								<th>Sobrenome</th>
+								<th>Morada</th>
+								<th>Data</th>
+								<th>Doenca</th>
+								<th style="width: 190px">Opcoes</th>
 							</tr>
 						</thead>
-
-						<tbody>
-
-						</tbody>
+						<tbody id="reportsTableBody"></tbody>
 					</table>
+					<div id="noDataFound" class="text-center"></div>
+				    
 				</div>
 			</div>
 		</div>

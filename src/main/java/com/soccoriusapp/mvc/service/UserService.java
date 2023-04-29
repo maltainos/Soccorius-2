@@ -1,5 +1,7 @@
 package com.soccoriusapp.mvc.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.soccoriusapp.mvc.entity.UserEntity;
@@ -13,5 +15,6 @@ public interface UserService {
 	UserEntity updateUser(Integer userId, UserEntity user) throws UserNotFoundException;
 	Long countUser();
 	UserEntity findUser(Integer userId) throws UserNotFoundException;
+	List<UserEntity> findAll();
 
 }

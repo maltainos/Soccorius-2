@@ -1,8 +1,13 @@
 package com.soccoriusapp.mvc.service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
+import com.soccoriusapp.mvc.entity.Receita;
 import com.soccoriusapp.mvc.entity.Triagem;
+import com.soccoriusapp.mvc.model.rest.TriagemRest;
 
 public interface TriagemService {
 
@@ -18,6 +23,10 @@ public interface TriagemService {
 
 	Long countTriagens();
 
-	Triagem findReport(String doenca, String bairo, String dateStart, String dateEnd);
+	Page<Triagem> findReport(int page, String doenca, String bairo, LocalDate dateStart, LocalDate dateEnd);
+
+	Triagem setReceita(Receita receita, String doenca);
+	
+	List<TriagemRest> getTriagemReport(LocalDate startAt, LocalDate endAt);
 
 }
